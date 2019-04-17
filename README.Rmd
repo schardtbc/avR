@@ -1,0 +1,48 @@
+---
+title: "README"
+author: "Bruce C. Schardt"
+date: "4/16/2019"
+output: md_document
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## avR Package
+
+A simple client to access the Alpha Vantage Market Data Api. Only the TIME_SERIES_DAILY_ADJUSTED and TIME_SERIES_INTRADAY endpoints are exposed.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(avR)
+library(tidyquant)
+```
+
+## Daily Market Data
+
+
+
+```{r}
+aapl <- time_series_daily_adjusted("AAPL",outputsize="full")
+aapl
+```
+
+## Intraday Market Data
+
+```{r}
+aapl_id <- time_series_intraday("AAPL",outputsize="full")
+aapl_id
+```
+
+Note that the data is returned as a tibble (dataframe) 
+
+```{r apple daily}
+ggplot2::ggplot(aapl %>%filter(datetime>"2018-06-01"),aes(x = datetime)) +
+  geom_candlestick(aes(open = aOpen, high=aHigh, low= aLow, close = aClose)) + ggplot2::ggtitle("APPLE DAILY",subtitle = "from ALPHA VANTAGE")
+```
+```{r apple intraday}
+ggplot2::ggplot(aapl_id ,aes(x = minute,y=close,colour=date)) +
+  geom_line() +
+  ggplot2::ggtitle("APPLE Intraday",subtitle = "from ALPHA VANTAGE")
+```
