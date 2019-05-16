@@ -21,7 +21,7 @@ time_series_daily_adjusted <- function(symbol,outputsize = "compact", lastN=0){
         dplyr::mutate( aOpen = open*aClose/close, aHigh = high*aClose/close, aLow = low*aClose/close,
                        sourceName="AV", sequenceID = 0, aVolume = ifelse(volume == 0,1,volume),
                        datetime = lubridate::as_datetime(paste0(date," 09:30:00"),tz = "America/New_York"),
-                       epoch = as.numeric(seconds(datetime))) %>%
+                       epoch = as.numeric(lubridate::seconds(datetime))) %>%
         dplyr::select(symbol,date,sourceName,sequenceID,datetime,epoch,open,high,low,volume,close,aOpen,aHigh,aLow,aClose,aVolume,dividendAmount,splitCoefficient)
   if (lastN >0) {
     df <- dplyr::top_n(df,lastN,date)
