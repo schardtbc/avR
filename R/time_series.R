@@ -10,7 +10,8 @@
 time_series_daily_adjusted <- function(symbol,outputsize = "compact", lastN=0){
   endpoint <- glue::glue("TIME_SERIES_DAILY_ADJUSTED&symbol={symbol}&outputsize={outputsize}");
   res <- avGet(endpoint);
-  data <- res[[2]];
+  if (res$status) return (tibble::as_tibble(list()))
+  data <- res$content[[2]];
   d0 <- lapply(data,function(x){lapply(x, function(y) {ifelse(is.null(y),NA,as.numeric(y))})})
   df <- tibble::as_tibble(do.call(rbind,d0),rownames="date") %>%
         dplyr::mutate(symbol = res[[1]]$`2. Symbol`) %>%
@@ -40,7 +41,8 @@ time_series_daily_adjusted <- function(symbol,outputsize = "compact", lastN=0){
 time_series_intraday <- function(symbol,outputsize = "full", interval = "1min", lastday = FALSE){
   endpoint <- glue::glue("TIME_SERIES_INTRADAY&symbol={symbol}&interval={interval}&outputsize={outputsize}");
   res <- avGet(endpoint);
-  data <- res[[2]];
+  if (res$status) return (tibble::as_tibble(list()))
+  data <- res$content[[2]];
   d0 <- lapply(data,function(x){lapply(x, function(y) {ifelse(is.null(y),NA,as.numeric(y))})})
   df <- tibble::as_tibble(do.call(rbind,d0),rownames="date") %>%
     dplyr::mutate(symbol = res[[1]]$`2. Symbol`) %>%

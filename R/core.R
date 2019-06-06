@@ -22,23 +22,48 @@ constructURL <- function(endpoint) {
 #' @export
 avGet <- function(endpoint) {
   url <- constructURL(endpoint);
-  res <- httr::GET(url);
-  httr::content(res);
+  resp <- httr::GET(url);
+
+  parsed <- list()
+  if (httr::http_error(resp)) {
+    warning(
+      sprintf(
+        "ALPHA VANTAGE API request failed [%s]\n%s\n%s\n%s",
+        httr::status_code(resp),
+        httr::content(resp, "text"),
+        "endpoint requested:",
+        endpoint
+      ),
+      call. = FALSE
+    )
+  } else {
+
+    if (httr::http_type(resp) != "application/json") {
+      warning(
+        sprintf(
+          "ALPHA VANTAGE API did not return json\n%s",
+          httr::content(resp, "text")
+        ),
+        call. = FALSE
+      );
+      parsed <- list();
+    } else {
+      parsed <- jsonlite::fromJSON(httr::content(resp, "text"), simplifyVector = FALSE)
+    }
+  }
+
+  structure(
+    list(
+      status = httr::http_error(resp),
+      content = parsed,
+      endpoint = endpoint,
+      response = resp
+    ),
+    class = "alpha_vantage_api"
+  )
+
 };
 
-
-#' Perform a get request to an endpoint on the iexcloud server, will show the complete url
-#' including security token being sent to the server for debug
-#'
-#' @param endpoint a string which will form the variable are of the endpoint URL
-#' @return parsed response data, this will usually be a list of key:value pairs from parsed json object
-#' @export
-avDebug <- function(endpoint) {
-  url <- constructURL(endpoint);
-  show(url);
-  res <- httr::GET(url);
-  httr::content(res);
-};
 
 #' Perform a get request to an endpoint on the alphaVantage server
 #'

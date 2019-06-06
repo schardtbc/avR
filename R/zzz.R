@@ -39,8 +39,6 @@ getToken <- function(){
   config$token;
 }
 
-
-
 .onLoad <- function(libname, pkgname) {
   if (file.exists(".env")){
     readRenviron(".env");
