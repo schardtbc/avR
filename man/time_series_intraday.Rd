@@ -5,16 +5,20 @@
 \title{returns intraday market data for a specified symbol}
 \usage{
 time_series_intraday(symbol, outputsize = "full", interval = "1min",
-  lastday = FALSE)
+  from = NULL, to = NULL, nDays = 0)
 }
 \arguments{
 \item{symbol}{string, a market data symbol such as "AMZN"}
 
-\item{outputsize}{"full"; full returns ~ 5 days worth of data; compact returns last 100 data points}
+\item{outputsize}{Depreciated}
 
 \item{interval}{"1min"; choices are  1min, 5min, 15min, 30min, 60min}
 
-\item{lastday}{FALSE; if TRUE only most recent trading days days will be returned}
+\item{from}{date YYYY-MM-DD Optional return data starting at this date}
+
+\item{to}{date YYYY-MM-DD Optional return data upto and including this date}
+
+\item{nDays}{Optional 0 == all data; if >0 only most recent nDays of intraday data will be returned}
 }
 \value{
 dataframe

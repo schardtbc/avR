@@ -4,16 +4,19 @@
 \alias{time_series_daily_adjusted}
 \title{returns market end of day adjusted data for a specified symbol}
 \usage{
-time_series_daily_adjusted(symbol, outputsize = "compact", lastN = 0)
+time_series_daily_adjusted(symbol, outputsize = "compact", from = NULL,
+  to = NULL, lastN = 100)
 }
 \arguments{
 \item{symbol}{string, a market data symbol such as "AMZN"}
 
-\item{outputsize}{"full"; full returns ~ 20 years worth of data; compact returns last 100 data points}
+\item{outputsize}{depreciated}
 
-\item{lastN}{0; if >0 lastN species how many of the most recent trading days will be returned}
+\item{from}{date YYYY-MM-DD Optional return data starting at this date}
 
-\item{interval}{"1min"; choices are  1min, 5min, 15min, 30min, 60min}
+\item{to}{date YYYY-MM-DD Optional return data upto and including this date}
+
+\item{lastN}{100 Optional; if 0 all data returned; if >0 lastN specifies how many of the most recent trading days will be returned}
 }
 \value{
 dataframe

@@ -24,21 +24,21 @@ library(tidyquant)
 
 
 ```{r}
-aapl <- time_series_daily_adjusted("AAPL",outputsize="full")
+aapl <- time_series_daily_adjusted("AAPL",from = "2019-01-01", to = "2019-06-01")
 aapl
 ```
 
 ## Intraday Market Data
 
 ```{r}
-aapl_id <- time_series_intraday("AAPL",outputsize="full")
+aapl_id <- time_series_intraday("AAPL",nDays = 1)
 aapl_id
 ```
 
 Note that the data is returned as a tibble (dataframe) 
 
 ```{r apple daily}
-ggplot2::ggplot(aapl %>%filter(datetime>"2018-06-01"),aes(x = datetime)) +
+ggplot2::ggplot(aapl ,aes(x = datetime)) +
   geom_candlestick(aes(open = aOpen, high=aHigh, low= aLow, close = aClose)) + ggplot2::ggtitle("APPLE DAILY",subtitle = "from ALPHA VANTAGE")
 ```
 ```{r apple intraday}

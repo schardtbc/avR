@@ -1,7 +1,7 @@
 Package: avR
 Type: Package
 Title: client facillitating access to AlphaVantage Server
-Version: 0.1.0
+Version: 0.2.0
 Author: Bruce C. Scharadt
 Maintainer: Bruce C. Schardt <schardt.bruce.curtis@gmail.com>
 Description: Client to access End of day and intrday data from AlphaVantage Service
