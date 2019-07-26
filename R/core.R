@@ -48,10 +48,16 @@ avGet <- function(endpoint) {
       );
       parsed <- list();
     } else {
-      parsed <- jsonlite::fromJSON(httr::content(resp, "text"), simplifyVector = FALSE)
+      parsed <- jsonlite::fromJSON(httr::content(resp, "text", encoding = "ISO-8859-1"), simplifyVector = FALSE)
     }
   }
-
+  nms <- names(parsed)
+  if (length(nms) == 0 || (length(nms)==1 && nms == "Error Message")) {
+    resp$status_code <- as.integer(404)
+    resp$headers$status <- as.integer(404)
+    resp$all_headers$status <- as.integer(404)
+    parsed <- list()
+  }
   structure(
     list(
       status = httr::http_error(resp),

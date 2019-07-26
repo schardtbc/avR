@@ -11,7 +11,7 @@
 time_series_daily_adjusted <- function(symbol,outputsize = "compact", from = NULL, to = NULL, lastN=100){
   if (lastN == 0 || lastN >100) {outputsize <- "full"}
   if (!is.null(from)) {
-    cnt = as.numeric(Sys.Date() - as.Date(from));
+    cnt <- as.numeric(Sys.Date() - as.Date(from));
     if (cnt<130) {
       outputsize <- "compact"
     } else {
