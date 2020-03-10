@@ -1,21 +1,19 @@
 
 
 
-readRenviron(".env")
-env<-Sys.getenv();
-avEnv <- env[grep("^ALPHA_VANTAGE",names(env))];
+#readRenviron(".env")
+#env<-Sys.getenv();
+#avEnv <- env[grep("^ALPHA_VANTAGE",names(env))];
 
 
-theenv <- function(){
-  env
-}
+#theenv <- function(){
+#  env
+#}
 
-baseURL <- avEnv[["ALPHA_VANTAGE_BASE_URL"]];
+#baseURL <- avEnv[["ALPHA_VANTAGE_BASE_URL"]];
 
 
-addToken <- function(endpoint){
-  paste0(endpoint, "&apikey=", avEnv[["ALPHA_VANTAGE_API_KEY"]])
-};
+
 
 
 config <- new.env(parent = emptyenv())
@@ -25,6 +23,10 @@ config <- new.env(parent = emptyenv())
 getConfig <- function(){
   config
 }
+
+addToken <- function(endpoint){
+  paste0(endpoint, "&apikey=", config$token)
+};
 
 #' set the AlphaVantage API token
 #' @param token iex cloud token
@@ -40,9 +42,9 @@ getToken <- function(){
 }
 
 .onLoad <- function(libname, pkgname) {
-  if (file.exists(".env")){
-    readRenviron(".env");
-  }
+#  if (file.exists(".env")){
+#    readRenviron(".env");
+#  }
   env<-Sys.getenv();
   avEnv <- as.list(env[grep("^ALPHA_VANTAGE",names(env))]);
   config$baseURL <- "https://www.alphavantage.co/query?function=";

@@ -4,8 +4,14 @@
 \alias{time_series_intraday}
 \title{returns intraday market data for a specified symbol}
 \usage{
-time_series_intraday(symbol, outputsize = "full", interval = "1min",
-  from = NULL, to = NULL, nDays = 0)
+time_series_intraday(
+  symbol,
+  outputsize = "full",
+  interval = "1min",
+  from = NULL,
+  to = NULL,
+  nDays = 0
+)
 }
 \arguments{
 \item{symbol}{string, a market data symbol such as "AMZN"}

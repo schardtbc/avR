@@ -4,8 +4,13 @@
 \alias{time_series_daily_adjusted}
 \title{returns market end of day adjusted data for a specified symbol}
 \usage{
-time_series_daily_adjusted(symbol, outputsize = "compact", from = NULL,
-  to = NULL, lastN = 100)
+time_series_daily_adjusted(
+  symbol,
+  outputsize = "compact",
+  from = NULL,
+  to = NULL,
+  lastN = 100
+)
 }
 \arguments{
 \item{symbol}{string, a market data symbol such as "AMZN"}

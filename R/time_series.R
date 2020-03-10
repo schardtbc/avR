@@ -26,7 +26,7 @@ time_series_daily_adjusted <- function(symbol,outputsize = "compact", from = NUL
   d0 <- lapply(data,function(x){lapply(x, function(y) {ifelse(is.null(y),NA,as.numeric(y))})})
   df <- tibble::as_tibble(do.call(rbind,d0),rownames="date") %>%
         dplyr::mutate(symbol = res$content[[1]]$`2. Symbol`) %>%
-        tidyr::unnest() %>%
+        tidyr::unnest_legacy() %>%
         dplyr::rename( open = `1. open`, high = `2. high`, low = `3. low`, close = `4. close`,
                        aClose = `5. adjusted close`, volume = `6. volume`, dividendAmount = `7. dividend amount`,
                        splitCoefficient = `8. split coefficient`) %>%
@@ -73,7 +73,7 @@ time_series_intraday <- function(symbol,outputsize = "full", interval = "1min", 
   d0 <- lapply(data,function(x){lapply(x, function(y) {ifelse(is.null(y),NA,as.numeric(y))})})
   df <- tibble::as_tibble(do.call(rbind,d0),rownames="date") %>%
     dplyr::mutate(symbol = res$content[[1]]$`2. Symbol`) %>%
-    tidyr::unnest() %>%
+    tidyr::unnest_legacy() %>%
     dplyr::rename( open = `1. open`, high = `2. high`, low = `3. low`, close = `4. close`,
                    volume = `5. volume`) %>%
     dplyr::mutate( sourceName="AV", sequenceID = 0,
